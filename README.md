@@ -12,7 +12,8 @@ pricing, fases, costos, riesgos y checkpoints de revisión. Toda decisión nueva
 |---|---|
 | `docs/PLAN.md` | Plan maestro v3 (aprobado) — leer primero |
 | `docs/entrevistas/guion-entrevistas.md` | Guion de las entrevistas de validación de Fase 0 |
-| `docs/entrevistas/resultados.md` | (pendiente) consolidado semanal de entrevistas → input del checkpoint C1 |
+| `docs/entrevistas/resultados.md` | Consolidado semanal de entrevistas → input del checkpoint C1 (ir llenando a medida que se entrevista) |
+| `docs/brand/manual.md` | Manual de marca mínimo (paleta, tono, wordmark, uso en IG) |
 | `landing/` | Landing de captación + waitlist, lista para Cloudflare Pages |
 
 ## Desplegar la landing (Cloudflare Pages, ~10 min)
@@ -32,7 +33,7 @@ Para comentar o proponer algo, abre un **Issue** (pestaña Issues → New issue)
 
 ## Convenciones de desarrollo
 
-- Rama de trabajo actual: `claude/tatupay-platform-design-js476x`.
+- Rama de trabajo actual: `claude/plan-loading-execution-xhl1fq`.
 - Regla de revisión (ver §9 del plan): todo cambio que toque **dinero, auth o disponibilidad** pasa por
   revisión de mayor capacidad (Fable) antes de mergear; UI/contenido/CRUD puede ir directo.
 - El producto (Next.js + Supabase, ver §7 del plan) se construye en Fase 1; aún no existe en este repo.
