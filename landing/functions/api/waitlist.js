@@ -1,6 +1,25 @@
-// Cloudflare Pages Function: POST /api/waitlist
+// Cloudflare Pages Function: POST /api/waitlist (registro) y GET /api/waitlist (conteo).
 // Requiere un binding KV llamado WAITLIST (Pages → Settings → Functions → KV namespace bindings).
-// Sin el binding responde 503 y el frontend muestra el fallback a Instagram.
+// Sin el binding, POST responde 503 (el frontend muestra el fallback a Instagram) y GET responde count: 0.
+
+// GET: cuántos artistas hay en la lista. El frontend solo muestra el contador si count >= 5.
+export async function onRequestGet({ env }) {
+  let count = 0;
+  if (env.WAITLIST) {
+    let cursor;
+    do {
+      const page = await env.WAITLIST.list({ prefix: 'wl:', cursor });
+      count += page.keys.length;
+      cursor = page.list_complete ? undefined : page.cursor;
+    } while (cursor && count < 1000);
+  }
+  return new Response(JSON.stringify({ count }), {
+    headers: {
+      'content-type': 'application/json',
+      'cache-control': 'public, max-age=300',
+    },
+  });
+}
 
 export async function onRequestPost({ request, env }) {
   if (!env.WAITLIST) {
