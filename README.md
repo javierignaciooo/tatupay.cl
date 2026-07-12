@@ -13,6 +13,7 @@ pricing, fases, costos, riesgos y checkpoints de revisión. Toda decisión nueva
 | `docs/PLAN.md` | Plan maestro v3 (aprobado) — leer primero |
 | `docs/entrevistas/guion-entrevistas.md` | Guion de las entrevistas de validación de Fase 0 |
 | `docs/entrevistas/resultados.md` | (pendiente) consolidado semanal de entrevistas → input del checkpoint C1 |
+| `docs/brand/manual-de-marca.md` | Manual de marca: paleta, tono, wordmark, y plan de activación de Instagram |
 | `landing/` | Landing de captación + waitlist, lista para Cloudflare Pages |
 
 ## Desplegar la landing (Cloudflare Pages, ~10 min)
