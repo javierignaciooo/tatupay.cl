@@ -1,4 +1,4 @@
-# tatupay.cl — Plan maestro v3: agendamiento + cobro con tarjeta para tatuadores en Chile
+# tatupay.cl — Plan maestro v4: agendamiento + cobro con tarjeta para tatuadores en Chile
 
 ## Contexto
 
@@ -7,6 +7,8 @@ tatupay.cl es una plataforma de agendamiento y cobro con tarjeta para tatuadores
 **v2 incorporó**: equipo de 3 socios (abogado fundador — legal in-house; ingeniera comercial en Corfo; administrador público), hosting en Cloudflare, acceso directo a ~7 tatuadores, costos iniciales explícitos (dominio ya pagado: $10.000), evaluación del proyecto hermano peluquería/barbería con modelo ClassPass, y checkpoints explícitos de cuándo volver a Fable/Opus.
 
 **v3 incorpora**: los 3 socios mantienen sus dayjobs (proyecto 100% part-time ⇒ timeline realista de 6 meses y cadencia de trabajo definida en §5), la socia NO deja Corfo (se elimina esa opción del análisis de inhabilidad), y el DICOM del fundador como hecho relevante para financiamiento, banca y estructura patrimonial — incluida la evaluación de la figura de la cónyuge como accionista (§1.2).
+
+**v4 incorpora** (primera reunión con la ingeniera comercial, 12-jul-2026, §1.4): la Ruta C de Corfo (su hermano como representante, con las mismas reservas de simulación que la figura de la cónyuge) y la decisión de **no postular a ningún fondo este año** — bootstrapear con la caja de los socios y postular el año 2 a fondos de potenciación/crecimiento con el modelo ya funcionando. Esto descarta el ítem 6 de Fase 0 (Semilla Inicia) para este año y quita urgencia de calendario al dictamen de inhabilidad Corfo.
 
 Al aprobar: se commitea este documento como `docs/PLAN.md` y se pushea. No se construye producto aún.
 
@@ -65,6 +67,16 @@ No se necesita plan Enterprise (ni Team) para trabajar juntos:
 - **Contexto compartido sin cuenta compartida**: todo lo importante vive en el repo, así que cualquier sesión de Claude recupera el estado completo leyendo `docs/`. **El repo es la memoria compartida; Claude es el ejecutor que cada uno enchufa a esa memoria.**
 - Complemento gratis para lo no-técnico: Google Docs para borradores en edición simultánea, cuyo resultado final se congela en el repo. Evitar herramientas de pago (Notion/Slack pagados) en esta etapa — WhatsApp de socios + reunión semanal + repo cubren todo.
 
+### 1.4 Primera reunión con la ingeniera comercial — dos definiciones nuevas (nuevo v4, 12-jul-2026)
+
+**Ruta C — el hermano de la socia como representante.** Ella propone que su hermano la represente ante Corfo/el fondo para sortear la inhabilidad, sin que ella salga de la propiedad. Antes de darla por resuelta: la inhabilidad de las bases típicamente alcanza no solo a quien firma la postulación, sino al **beneficiario final** y a las **personas relacionadas** de la funcionaria — un hermano actuando como representante formal (o, peor, como accionista nominal en su lugar) puede enfrentar el mismo riesgo ya identificado en §1.2 para la figura de la cónyuge: registro de beneficiario final, simulación, y si el propósito real es ocultar quién controla la empresa frente a un fondo público, el riesgo es tan real con un hermano como con una esposa. **Se agrega como variante a evaluar en el dictamen del fundador (abogado), no como solución automática** — no reemplaza el análisis Ruta A/B de §1.1, se suma a él.
+
+**Decisión de cronograma — no postular a fondos este año.** La socia propone no postular a ningún fondo (Corfo u otro) durante este año: hacer funcionar tatupay con recursos propios de los socios (la caja de §6, ~$2–4M) y recién el próximo año postular a **fondos de potenciación/crecimiento** (etapa posterior a semilla, para empresas con modelo ya validado y operando) en vez de a fondos de etapa inicial como Semilla Inicia. Efectos sobre el plan:
+- **Se descarta para este año** el ítem 6 de Fase 0 (postulación Semilla Inicia) — ver tabla actualizada en §5. La urgencia de "postular antes de la primera venta" (§1.1) deja de aplicar en el corto plazo, porque no se postula este año de todas formas.
+- **Contrapartida a vigilar**: la caja de bolsillo (§6, ~$2–4M) pasa a ser la única fuente de financiamiento hasta la postulación del año 2 — no hay colchón de $15M de Semilla Inicia si el piloto tarda más o si los costos de Fase 1 se disparan. Los 3 socios deberían reconfirmar que ese monto sigue siendo realista con este cambio.
+- El riesgo de §8 "ventas tempranas inhabilitan Semilla Inicia" deja de ser relevante este año; se reemplaza por el requisito de tracción propio del fondo de potenciación que se elija, a evaluar en el checkpoint C5 (post-piloto, §9) cuando haya datos reales para postular con "una fórmula ya funcionando".
+- El dictamen de inhabilidad Corfo (§1.1, ítem 0 de Fase 0) se mantiene como tarea del fundador, pero **deja de ser bloqueante en el corto plazo** — se resuelve con calma en paralelo a Fase 1, ya que no depende de él ninguna postulación inminente.
+
 ---
 
 ## 2. Pasarela y comisión (sin cambios de fondo — resumen)
@@ -101,20 +113,20 @@ Análisis:
 
 | # | Entregable | Responsable | Nota |
 |---|---|---|---|
-| 0 | **Dictamen interno inhabilidad Corfo + estructura societaria** | Abogado | Bloquea la constitución; decide si la socia entra a la propiedad ahora |
+| 0 | **Dictamen interno inhabilidad Corfo + estructura societaria** | Abogado | Decide si la socia entra a la propiedad ahora; ya no bloquea el calendario en el corto plazo (§1.4: no se postula a fondos este año) |
 | 1 | **Pacto de socios con vesting** + cláusula proyecto peluquería | Abogado | Antes de constituir |
 | 2 | **SpA + inicio actividades SII + INAPI** (clases 36 y 42) | Abogado | "Tu Empresa en un Día" (gratis); INAPI autotramitada |
 | 3 | **Entrevistas a 15–20 tatuadores** | Fundador + admin. público | Base: 7 alcanzables (2 directos + 3 indirectos + 1 de la socia) → cada entrevista termina pidiendo 2 referidos (bola de nieve). Meta: ≥60% valida el 4,9% y ≥8 comprometidos al piloto |
 | 4 | **Landing + waitlist en tatupay.cl** (Cloudflare) | Claude (Sonnet) | Único código de Fase 0 |
 | 5 | **Sandbox MP Split punta a punta** + contacto comercial MP; plan B Getnet si falla | Fundador + Claude | Go/no-go documentado |
-| 6 | **Postulación Semilla Inicia** (solo en Ruta A de §1.1) | Fundador o admin. público | Antes de la primera venta; la socia NO participa del expediente (probidad); tramo base $15M/75% |
+| ~~6~~ | ~~Postulación Semilla Inicia~~ — **descartada para este año (nuevo v4, §1.4)** | — | La socia propone hacer funcionar tatupay con recursos propios este año y postular el año 2 a fondos de potenciación/crecimiento con el modelo ya validado, en vez de a Semilla Inicia ahora |
 | 7 | Identidad de marca + IG activo | Claude (Sonnet) + equipo | Manual en `docs/brand/` |
 
 ### Fase 1 — MVP (meses 3–6)
 Sin cambios de alcance: onboarding del tatuador (perfil, portafolio, servicios con % de abono, horarios), página pública `tatupay.cl/{artista}`, checkout del abono vía MP, panel PWA, notificaciones (correo + links `wa.me`), consentimiento anti-contracargo con timestamp/IP. Piloto guante-blanco con los ≥8 comprometidos; el administrador público es el dueño del onboarding y soporte. Fuera del MVP: boletas SII, paquetes, multi-artista, apps, cobro 100% online.
 
 ### Fase 2 — Escalamiento (meses 7+)
-Prioridades candidatas según piloto: boletas SII automáticas (OpenFactura/SimpleAPI) → WhatsApp Business API → cobro de saldo online y paquetes → autoservicio + apertura pública + referidos → renegociación de tasas / Fintoc A2A → estudios multi-artista. Fase 3: vertical peluquería y, mucho después, capa ClassPass (gates de §4); apps nativas según criterios de §3.
+Prioridades candidatas según piloto: boletas SII automáticas (OpenFactura/SimpleAPI) → WhatsApp Business API → cobro de saldo online y paquetes → autoservicio + apertura pública + referidos → renegociación de tasas / Fintoc A2A → estudios multi-artista. **Postulación a fondos de potenciación/crecimiento** con el modelo ya funcionando (nuevo v4, §1.4) — se define fondo y timing exacto en el checkpoint C5. Fase 3: vertical peluquería y, mucho después, capa ClassPass (gates de §4); apps nativas según criterios de §3.
 
 ---
 
@@ -170,12 +182,12 @@ Se mantiene la tabla v1 (contracargos → abono + consentimiento con evidencia; 
 
 | Riesgo nuevo | Mitigación |
 |---|---|
-| **Inhabilidad Corfo por la socia** (pierde acceso al fondo principal) | Dictamen interno semana 1 antes de constituir; Ruta A (asesora fuera de la propiedad, Corfo posible) vs Ruta B (accionista, financiamiento no-Corfo) — §1.1 |
+| **Inhabilidad Corfo por la socia** (pierde acceso a fondos futuros) | Dictamen interno del fundador antes de constituir (ya no urgente en el corto plazo, §1.4); Ruta A (asesora fuera de la propiedad) vs Ruta B (accionista, financiamiento no-Corfo) vs Ruta C (hermano como representante, mismo riesgo de simulación que §1.2 — no dar por resuelta sin dictamen) — §1.1, §1.4 |
 | **DICOM del fundador** (banca, fondos, due diligence) | Identificar origen de la deuda semana 1; rep legal = administrador público; banca temprana vía cuenta MP; regularizar antes de la ronda; NO usar interposición de la cónyuge ante fondos públicos — §1.2 |
 | **Burn-out / abandono part-time** (3 dayjobs) | Cadencia mínima pactada (8–10 h/semana), reunión semanal fija, vesting con cliff, gatillos de dilución por incumplimiento sostenido en el pacto |
 | **Conflicto societario por el proyecto peluquería** (¿de quién es la segunda vertical?) | Cláusula expresa en el pacto de socios, Fase 0 |
 | **Equipo sin perfil técnico** (dependencia total de fundador+Claude para el producto) | Checkpoints Fable de §9 como control de calidad; presupuesto AI tratado como costo fijo; documentación del código como entregable obligatorio para eventual dev contratado post-ronda |
-| **Ventas tempranas inhabilitan Semilla Inicia** | Postular antes de la primera comisión cobrada; si el piloto se adelanta, cobrar $0 de comisión hasta ingresada la postulación |
+| **Sin colchón Corfo este año** (nuevo v4: se descarta postular en el corto plazo, §1.4) | Toda Fase 0–1 se financia con la caja de bolsillo de §6 (~$2–4M); reconfirmar con los 3 socios que el monto sigue siendo realista sin el respaldo de los $15M de Semilla Inicia |
 
 ---
 
@@ -214,10 +226,10 @@ Heurística de escalamiento en el día a día: parte todo en Sonnet medio; baja 
 
 ## 10. Supuestos y preguntas abiertas (actualizado)
 
-Resueltas en v2: equipo y roles (3 socios), hosting (Cloudflare), alcance de red inicial (7 tatuadores → bola de nieve), costos iniciales (§6), cadencia de revisión Fable (§9). Resueltas en v3: dedicación (part-time los tres ⇒ 6 meses), colaboración del equipo (§1.3, sin plan Enterprise).
+Resueltas en v2: equipo y roles (3 socios), hosting (Cloudflare), alcance de red inicial (7 tatuadores → bola de nieve), costos iniciales (§6), cadencia de revisión Fable (§9). Resueltas en v3: dedicación (part-time los tres ⇒ 6 meses), colaboración del equipo (§1.3, sin plan Enterprise). Resuelta en v4: timing del financiamiento externo (no se postula a fondos este año, se bootstrapea y se postula el año 2 a fondos de potenciación/crecimiento — §1.4).
 
 Siguen abiertas para los socios:
-- **P1 — Ruta A o B de Corfo** (semana 1, tu dictamen): ¿la socia queda fuera de la propiedad para habilitar Semilla Inicia (A), o entra como accionista y se financia sin Corfo (B)? Incluye definir el alcance de "personas relacionadas" en las bases vigentes.
+- **P1 — Ruta A, B o C de Corfo** (dictamen del fundador, ya sin urgencia de calendario por §1.4): ¿la socia queda fuera de la propiedad (A), entra como accionista con financiamiento no-Corfo (B), o su hermano la representa (C, nuevo v4 — mismo riesgo de simulación que la cónyuge en §1.2, no asumir que resuelve la inhabilidad sin dictamen)? Incluye definir el alcance de "personas relacionadas" en las bases vigentes del fondo de potenciación que se elija para el año 2.
 - **P2 — Origen del DICOM** (semana 1): ¿deuda comercial privada, o incluye fiscal/CAE/crédito Corfo? Define si hay que regularizar antes de postular o solo antes de la ronda.
 - **P3 — Régimen matrimonial** (solo si se considera el plan B de la cónyuge): ¿sociedad conyugal o separación de bienes? Con sociedad conyugal la figura no cumple su objetivo (§1.2).
 - **P4 — Equity y vesting**: porcentajes entre los tres, gatillos por incumplimiento de horas, y titularidad del proyecto peluquería (pacto, Fase 0).
