@@ -15,17 +15,45 @@ pricing, fases, costos, riesgos y checkpoints de revisión. Toda decisión nueva
 | `docs/entrevistas/encuesta-google-forms.md` | Versión autoadministrada (link) del guion, para armar en Google Forms |
 | `docs/entrevistas/resultados.md` | Consolidado semanal de entrevistas → input del checkpoint C1 (ir llenando a medida que se entrevista) |
 | `docs/brand/manual-de-marca.md` | Manual de marca: paleta, tono, wordmark, y plan de activación de Instagram |
-| `landing/` | Landing de captación + waitlist, lista para Cloudflare Pages |
+| `landing/` | Landing de captación + waitlist (HTML estático + fotos en `landing/img/`) |
+| `worker/` | Backend de la waitlist (`/api/waitlist`) — se despliega como Cloudflare Worker |
+| `functions/` | Entrada alternativa del mismo backend si el proyecto corre en Cloudflare **Pages** |
+| `wrangler.jsonc` | Configuración del despliegue en Cloudflare Workers (assets + worker + KV) |
 
-## Desplegar la landing (Cloudflare Pages, ~10 min)
+## Desplegar la landing (Cloudflare Workers)
 
-1. Cloudflare Dashboard → **Workers & Pages → Create → Pages → Connect to Git** → este repo.
-2. Build settings: framework **None**, build command vacío, output directory **`landing`**.
-3. Para que la waitlist guarde registros: **KV → Create namespace** (`tatupay-waitlist`), y en el proyecto
-   Pages → **Settings → Functions → KV namespace bindings** → variable **`WAITLIST`** → ese namespace.
-   Sin el binding, la landing funciona igual y el formulario ofrece el fallback a Instagram.
-4. **Custom domain**: agregar `tatupay.cl` (el dominio ya debe estar en Cloudflare DNS).
-5. Leer registros de la waitlist: KV → namespace → entradas `wl:*` (JSON con nombre, IG, ciudad, WhatsApp, fecha).
+El repo ya está conectado a Cloudflare vía **Workers Builds** (config en `wrangler.jsonc`:
+sirve `landing/` como estático y el Worker `worker/index.js` atiende `/api/waitlist`).
+
+1. En Cloudflare Dashboard → **Workers & Pages → tatupaycl → Settings → Build** revisa que la
+   **production branch** sea la rama principal de este repo (ver "Cómo manejamos las ramas").
+2. **Para que la waitlist guarde registros** (sin esto el formulario cae al fallback de Instagram):
+   - Crea el namespace: dashboard → **Storage & Databases → KV → Create namespace** → nombre `tatupay-waitlist`
+     (o por terminal: `npx wrangler kv namespace create WAITLIST`).
+   - Copia el **ID** del namespace, ábrelo en `wrangler.jsonc`, descomenta el bloque `kv_namespaces`
+     y pega el ID. Commit + push → se redespliega solo.
+3. (Recomendado) En el Worker → **Settings → Variables and Secrets** agrega `ADMIN_KEY` (un string
+   secreto inventado por ti). Con eso puedes **descargar los registros en Excel/CSV**:
+   `https://tatupay.cl/api/waitlist?format=csv&key=TU_ADMIN_KEY`
+4. (Opcional, anti-bots extra) Turnstile: dashboard → **Turnstile → Add site** → dominio `tatupay.cl`.
+   El **site key** se pega en `landing/index.html` (constante `TURNSTILE_SITE_KEY`) y el **secret**
+   como variable `TURNSTILE_SECRET` del Worker. Sin esto igual hay honeypot + trampa de tiempo.
+5. **Custom domain**: Worker → Settings → Domains & Routes → agregar `tatupay.cl`.
+
+También puedes ver los registros uno a uno en el dashboard: KV → namespace → entradas `wl:*`
+(JSON con nombre, IG, ciudad, WhatsApp, fecha).
+
+## Cómo manejamos las ramas (leer antes de pedir cambios)
+
+Regla simple: **una sola rama viva**. Todo lo demás se borra después de fusionarse.
+
+- **Rama principal** (la que despliega Cloudflare): `main` — si aún no existe, la rama consolidada
+  `claude/waitlist-testimonials-photos-fj299g` cumple ese rol hasta crearla.
+- Cada tarea nueva se trabaja en **una rama corta** creada desde la principal, se fusiona (idealmente
+  por Pull Request) y **se borra la rama** al fusionar. Nunca dos tareas en paralelo sobre la landing.
+- La rama `cloudflare/workers-autoconfig` la creó Cloudflare automáticamente; ya está fusionada.
+- Si Cloudflare no refleja un cambio: casi siempre es porque la **production branch** configurada en
+  Cloudflare no es la rama donde quedó el cambio. Revisar eso antes que cualquier otra cosa.
 
 ## Para los socios (sin conocimientos técnicos)
 
@@ -34,7 +62,6 @@ Para comentar o proponer algo, abre un **Issue** (pestaña Issues → New issue)
 
 ## Convenciones de desarrollo
 
-- Rama de trabajo actual: `claude/plan-loading-execution-xhl1fq`.
 - Regla de revisión (ver §9 del plan): todo cambio que toque **dinero, auth o disponibilidad** pasa por
   revisión de mayor capacidad (Fable) antes de mergear; UI/contenido/CRUD puede ir directo.
 - El producto (Next.js + Supabase, ver §7 del plan) se construye en Fase 1; aún no existe en este repo.

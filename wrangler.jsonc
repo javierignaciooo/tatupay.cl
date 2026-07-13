@@ -5,10 +5,32 @@
   "observability": {
     "enabled": true
   },
+  // El Worker atiende /api/waitlist; todo lo demás se sirve desde landing/ como estático.
+  "main": "worker/index.js",
   "assets": {
-    "directory": "landing"
+    "directory": "landing",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
   },
   "compatibility_flags": [
     "nodejs_compat"
-  ]
+  ],
+
+  // ── Para que la waitlist GUARDE registros ─────────────────────────────────
+  // 1. Crear el namespace KV (una sola vez):  npx wrangler kv namespace create WAITLIST
+  //    (o en el dashboard: Storage & Databases → KV → Create namespace)
+  // 2. Pegar el id que entrega el comando y descomentar el bloque:
+  //
+  // "kv_namespaces": [
+  //   { "binding": "WAITLIST", "id": "PEGA_AQUI_EL_ID_DEL_NAMESPACE" }
+  // ],
+  //
+  // Mientras el binding no exista, la landing funciona igual: el formulario
+  // muestra el fallback a Instagram en vez de guardar.
+
+  // ── Variables opcionales (Settings → Variables and Secrets del Worker) ────
+  // ADMIN_KEY         → habilita exportar registros: /api/waitlist?format=csv&key=<ADMIN_KEY>
+  // TURNSTILE_SECRET  → activa la verificación Cloudflare Turnstile en el backend
+  //                     (el site key va en landing/index.html, constante TURNSTILE_SITE_KEY)
+  "vars": {}
 }

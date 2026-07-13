@@ -14,6 +14,19 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230E0E0E'/%3E%3Ctext x='50' y='68' font-size='58' font-family='ui-sans-serif,system-ui' font-weight='800' fill='%2300E676' text-anchor='middle'%3Etp%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "¿Qué pasarela de pago usa tatupay?", "acceptedAnswer": {"@type": "Answer", "text": "Mercado Pago. El pago del cliente va directo a la cuenta de Mercado Pago del tatuador — tatupay nunca guarda la plata. Se aceptan las tarjetas de crédito, débito y prepago que acepta Mercado Pago en Chile."}},
+    {"@type": "Question", "name": "¿Cuándo llega la plata a mi cuenta?", "acceptedAnswer": {"@type": "Answer", "text": "El abono se acredita directo en tu cuenta de Mercado Pago apenas se aprueba el pago, y de ahí se retira a la cuenta bancaria según los plazos de Mercado Pago (normalmente el mismo día o al día siguiente)."}},
+    {"@type": "Question", "name": "¿Tiene mensualidad o permanencia?", "acceptedAnswer": {"@type": "Answer", "text": "No. Sin mensualidad, sin permanencia y sin multa: solo una comisión por cobro exitoso (3,9% + IVA tarifa fundadora). Si un mes no cobras nada, no pagas nada."}},
+    {"@type": "Question", "name": "¿Qué pasa si el cliente pide reembolso?", "acceptedAnswer": {"@type": "Answer", "text": "El tatuador define su política de abonos (reembolsable, reagendable o no reembolsable) y se muestra al cliente antes de pagar, con su aceptación registrada. Ante un desconocimiento de compra, tatupay entrega la evidencia de la reserva."}},
+    {"@type": "Question", "name": "¿Aceptan débito, crédito y prepago?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, las tres — y crédito en cuotas. Las cuotas son entre el cliente y su banco: el tatuador recibe el monto del abono completo menos la comisión."}}
+  ]
+}
+</script>
 <style>
   :root{
     --ink:#0E0E0E; --bone:#F4EFE6; --neon:#00E676; --skin:#B8AFA6;
@@ -61,7 +74,7 @@
   .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;
     transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
-  .card:hover{transform:scale(1.02);box-shadow:0 0 22px rgba(0,230,118,.12);border-color:#1f3d2c}
+  .card:hover{transform:scale(1.02);box-shadow:0 0 22px rgba(0,230,118,.16);border-color:rgba(0,230,118,.55)}
   .card h3{font-size:1.05rem;margin-bottom:8px;font-weight:700}
   .card p{color:var(--skin);font-size:.97rem}
   .icon{width:34px;height:34px;margin-bottom:14px;display:block}
@@ -96,12 +109,12 @@
   .mini-big{font-size:1.15rem;font-weight:800;color:var(--bone)}
   .mini-ok{width:44px;height:44px;border-radius:50%;border:2px solid var(--neon);margin:22px auto 12px;
     display:flex;align-items:center;justify-content:center;color:var(--neon);font-size:1.3rem}
-  .demo-steps{display:grid;gap:10px}
-  .demo-step{display:flex;gap:12px;align-items:baseline;color:var(--skin);font-size:.97rem;
-    border-left:2px solid var(--line);padding-left:14px;transition:border-color .3s,color .3s}
-  .demo-step b{color:var(--bone)}
+  .demo-steps{display:grid;gap:14px}
+  .demo-step{display:flex;gap:14px;align-items:baseline;color:var(--skin);font-size:1rem;
+    border-left:2px solid var(--line);padding:6px 0 6px 16px;transition:border-color .3s,color .3s,background .3s}
+  .demo-step b{color:var(--bone);display:block;font-size:1.05rem;margin-bottom:2px}
   .demo-step .n{font-family:ui-monospace,Menlo,monospace;color:var(--neon);font-size:.8rem}
-  .demo-step.on{border-left-color:var(--neon)}
+  .demo-step.on{border-left-color:var(--neon);background:linear-gradient(90deg,rgba(0,230,118,.06),transparent 70%)}
   @media(prefers-reduced-motion:reduce){
     .screen{animation:none;opacity:0}
     .screen.s1{opacity:1}
@@ -126,9 +139,11 @@
   .stat.hi b{color:var(--neon)}
   .port{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0}
   .port div{aspect-ratio:1;border-radius:6px;background:linear-gradient(135deg,#1d1d1d,#242424);
-    border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
-  .port svg{width:46%;height:46%}
-  .port svg *{stroke:#3d3a36;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+    border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden}
+  .port svg{width:62%;height:62%}
+  .port svg *{stroke:#57524a;stroke-width:1.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .port img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.2)}
 
   /* ---------- precio ---------- */
   .price-box{background:var(--card);border:1px solid var(--neon);border-radius:14px;padding:32px;max-width:34rem}
@@ -158,16 +173,25 @@
     border-radius:14px;padding:16px;transition:transform .18s ease,box-shadow .18s ease}
   .artist:hover{transform:scale(1.02);box-shadow:0 0 22px rgba(0,230,118,.1)}
   .avatar{width:48px;height:48px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
-    font-weight:800;font-size:1rem;color:var(--ink);background:var(--neon)}
+    font-weight:800;font-size:1rem;color:var(--ink);background:var(--neon);position:relative;overflow:hidden}
   .avatar.v2{background:#8BE9C5}.avatar.v3{background:#5ECFA0}
+  /* Si existe la foto real (landing/img/…), cubre las iniciales; si no, onerror la
+     elimina y quedan las iniciales como fallback. */
+  .avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
   .artist b{display:block;font-size:.95rem}
   .artist a{color:var(--skin);font-size:.82rem;text-decoration:none}
   .artist a:hover{color:var(--neon)}
   .quotes{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:26px}
-  .quote{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .quote{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;
+    transition:transform .18s ease,border-color .18s ease}
+  .quote:hover{transform:scale(1.01);border-color:rgba(0,230,118,.35)}
   .quote p{color:var(--bone);font-size:.97rem}
   .quote p::before{content:"“";color:var(--neon);font-size:1.4rem;font-weight:800;margin-right:2px}
-  .quote footer{border:none;padding:10px 0 0;font-size:.82rem;color:var(--skin)}
+  .quote footer{border:none;display:flex;gap:12px;align-items:center;padding:14px 0 0;font-size:.82rem;color:var(--skin)}
+  .quote footer .avatar{width:42px;height:42px;font-size:.85rem}
+  .quote footer b{color:var(--bone);display:block;font-size:.9rem}
+  .quote footer a{color:var(--skin);text-decoration:none}
+  .quote footer a:hover{color:var(--neon)}
 
   /* ---------- quiénes somos ---------- */
   .team{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
@@ -195,6 +219,9 @@
   input:focus{outline:2px solid var(--neon);border-color:transparent}
   input.ok{border-color:var(--neon)}
   input.bad{border-color:#E05555}
+  /* honeypot anti-bots: invisible para personas, irresistible para bots */
+  .hp{position:absolute !important;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;opacity:0}
+  .turnstile-slot{min-height:0}
   .terms{display:flex;gap:10px;align-items:flex-start;font-size:.85rem;color:var(--skin)}
   .terms input{width:17px;height:17px;margin-top:3px;accent-color:var(--neon);flex-shrink:0}
   .terms a{color:var(--neon)}
@@ -287,25 +314,10 @@
   <section id="como" class="reveal">
     <div class="wrap">
       <h2>Cómo funciona</h2>
-      <div class="grid">
-        <div class="card">
-          <svg class="icon" viewBox="0 0 34 34" aria-hidden="true"><rect x="9" y="3" width="16" height="28" rx="3"/><path d="M14 7 h6"/><circle cx="17" cy="14" r="4"/><path d="M12 26 c1.5-4 8.5-4 10 0" opacity=".8"/></svg>
-          <span class="step">PASO 01</span><h3>Publica tu página</h3><p>Tu portafolio, tus servicios y tus horas disponibles en <strong>tatupay.cl/tu-nombre</strong>. El link para tu bio de Instagram.</p>
-        </div>
-        <div class="card">
-          <svg class="icon" viewBox="0 0 34 34" aria-hidden="true"><rect x="4" y="8" width="26" height="19" rx="3"/><path d="M4 14 L30 14"/><path d="M9 21 L17 21" opacity=".8"/><path d="M21 20 l2.5 2.5 L28 18"/></svg>
-          <span class="step">PASO 02</span><h3>Tu cliente agenda y paga el abono</h3><p>Elige la hora y paga la reserva con tarjeta de crédito, débito o prepago, en el momento. Sin abono pagado, no hay hora tomada.</p>
-        </div>
-        <div class="card">
-          <svg class="icon" viewBox="0 0 34 34" aria-hidden="true"><path d="M17 4 v26 M17 4 c6 0 8 3 8 5 s-2 4-8 4 M17 30 c-6 0-9-3-9-5" opacity=".9"/><path d="M17 13 c7 0 9 3 9 6 s-3 6-9 6"/><path d="M8 25 c0-2 3-6 9-6" opacity=".7"/></svg>
-          <span class="step">PASO 03</span><h3>La plata llega a tu cuenta</h3><p>El abono se liquida directo a tu cuenta, al tiro. El saldo lo cobras en el estudio como siempre — efectivo, transferencia o un segundo link.</p>
-        </div>
-      </div>
-      <p class="punch" style="margin-top:32px">Esto no es otro link de pago suelto: un link no ata el pago a la hora.
-      En tatupay <strong>la hora existe solo si el abono está pagado</strong> — eso es lo que mata el no-show.</p>
-
-      <!-- Demo animada del flujo (CSS puro, sin video: pesa nada y se edita como texto) -->
-      <div class="demo">
+      <!-- Una sola sección de flujo: el teléfono animado es el protagonista y los
+           pasos de al lado llevan todo el detalle (antes había dos secciones que
+           se repetían: las tarjetas PASO 01–03 y esta demo). -->
+      <div class="demo" style="margin-top:8px">
         <div class="phone" aria-hidden="true">
           <div class="screen s1">
             <h4>tatupay.cl/<b>valen.ink</b></h4>
@@ -335,12 +347,14 @@
           </div>
         </div>
         <div class="demo-steps" id="demo-steps">
-          <div class="demo-step"><span class="n">01</span><span><b>El cliente elige la hora</b> en tu página pública, desde tu bio de Instagram.</span></div>
-          <div class="demo-step"><span class="n">02</span><span><b>Paga el abono con tarjeta</b> en el momento — crédito, débito o prepago.</span></div>
-          <div class="demo-step"><span class="n">03</span><span><b>La hora se bloquea sola.</b> Sin abono pagado no hay reserva: chao no-show.</span></div>
-          <div class="demo-step"><span class="n">04</span><span><b>La plata llega a tu cuenta.</b> El saldo lo cobras en el estudio como siempre.</span></div>
+          <div class="demo-step"><span class="n">01</span><span><b>Publica tu página</b>Tu portafolio, tus servicios y tus horas disponibles en <strong>tatupay.cl/tu-nombre</strong> — el link para tu bio de Instagram.</span></div>
+          <div class="demo-step"><span class="n">02</span><span><b>Tu cliente agenda y paga el abono</b>Elige la hora y paga la reserva con tarjeta — crédito en cuotas, débito o prepago — en el momento.</span></div>
+          <div class="demo-step"><span class="n">03</span><span><b>La hora se bloquea sola</b>Sin abono pagado no hay reserva. Nadie te vuelve a dejar la tarde botada: chao no-show.</span></div>
+          <div class="demo-step"><span class="n">04</span><span><b>La plata llega a tu cuenta, al tiro</b>El abono se liquida directo. El saldo lo cobras en el estudio como siempre — efectivo, transferencia o un segundo link.</span></div>
         </div>
       </div>
+      <p class="punch" style="margin-top:36px">Esto no es otro link de pago suelto: un link no ata el pago a la hora.
+      En tatupay <strong>la hora existe solo si el abono está pagado</strong> — eso es lo que mata el no-show.</p>
     </div>
   </section>
 
@@ -353,10 +367,19 @@
           <div class="mock-body">
             <p style="color:var(--bone);font-weight:700;font-size:.9rem">Valen Ink <span style="color:var(--skin);font-weight:400">· Santiago</span></p>
             <p style="font-size:.72rem">Blackwork · Fine line</p>
+            <!-- Portafolio del mockup: si subes fotos reales a landing/img/
+                 (port-1.jpg, port-2.jpg, port-3.jpg) se muestran solas; mientras
+                 no existan, quedan estas ilustraciones fine-line como fallback. -->
             <div class="port" aria-hidden="true">
-              <div><svg viewBox="0 0 24 24"><path d="M12 4 C7 9 5 13 8 17 c2 3 6 3 8 0 3-4 1-8-4-13Z"/></svg></div>
-              <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 5 v14 M5 12 h14"/></svg></div>
-              <div><svg viewBox="0 0 24 24"><path d="M4 18 C8 8 10 6 12 6 s4 2 8 12"/><path d="M9 13 h6"/></svg></div>
+              <div>
+                <svg viewBox="0 0 24 24"><path d="M6 20 c-2-2-1.5-5 1-6 3-1.2 7-1 9-3 1.6-1.6 1-4.4-1-5 -1.8-.5-3.4.6-3.6 2.2"/><path d="M6 20 c1.4.9 3 .6 4-.4" opacity=".8"/><circle cx="12.6" cy="7" r=".5"/><path d="M11 5.4 l-1.4-1"/></svg>
+              </div>
+              <div>
+                <svg viewBox="0 0 24 24"><path d="M12 21 v-9"/><path d="M12 15 c-2.4-.4-3.8-2-4-3.6"/><path d="M12 16.5 c2-.3 3.2-1.5 3.5-3"/><path d="M12 12 a3.6 3.6 0 1 1 3-5.6"/><path d="M12 9.6 a1.8 1.8 0 1 1 1.8 1.9" opacity=".8"/></svg>
+              </div>
+              <div>
+                <svg viewBox="0 0 24 24"><path d="M17.5 4 a7.5 7.5 0 1 0 2 9.5 6 6 0 1 1-2-9.5Z"/><path d="M7.5 17.5 l1-.4 M10.5 19 l.6-.9" opacity=".7"/></svg>
+              </div>
             </div>
             <div class="mini-row on"><span>Tatuaje mediano · 3h</span><span>desde $150.000</span></div>
             <div class="mini-btn">Ver horas disponibles</div>
@@ -424,21 +447,24 @@
   <!-- ⚠️ PLACEHOLDERS: los 3 artistas y las 3 citas de abajo son EJEMPLOS INVENTADOS
        para diseño. Reemplazar por artistas reales de la waitlist (con su permiso por
        escrito) ANTES de publicar esta sección. Para lanzar sin datos reales, ocultar
-       las dos secciones agregando hidden al <section>. -->
+       las dos secciones agregando hidden al <section>.
+       FOTOS: al subir landing/img/artista-1.jpg / -2 / -3 (cuadradas, ~400px) las
+       fotos reemplazan solas a las iniciales — sin tocar el HTML. Lo mismo para las
+       citas con landing/img/quote-1.jpg / -2 / -3. -->
   <section class="reveal">
     <div class="wrap">
       <h2>Artistas fundadores</h2>
       <div class="artists">
         <div class="artist">
-          <div class="avatar">VI</div>
+          <div class="avatar">VI<img src="/img/artista-1.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
           <div><b>Valen Ink</b><a href="https://instagram.com/valen.ink.ttt" rel="noopener">@valen.ink.ttt</a><br><a>Santiago · Blackwork</a></div>
         </div>
         <div class="artist">
-          <div class="avatar v2">RC</div>
+          <div class="avatar v2">RC<img src="/img/artista-2.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
           <div><b>Rojo Carmesí</b><a href="https://instagram.com/rojocarmesi.tattoo" rel="noopener">@rojocarmesi.tattoo</a><br><a>Valparaíso · Neotradicional</a></div>
         </div>
         <div class="artist">
-          <div class="avatar v3">NM</div>
+          <div class="avatar v3">NM<img src="/img/artista-3.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
           <div><b>Nico Madrid</b><a href="https://instagram.com/nicomadrid.ink" rel="noopener">@nicomadrid.ink</a><br><a>Concepción · Fine line</a></div>
         </div>
       </div>
@@ -447,15 +473,24 @@
       <div class="quotes">
         <blockquote class="quote">
           <p>Llevo años pidiendo el abono por transferencia y persiguiendo el comprobante por DM. Que la hora se bloquee sola con el pago es exactamente lo que necesito.</p>
-          <footer>Tatuadora, 8 años · Santiago</footer>
+          <footer>
+            <div class="avatar">VI<img src="/img/quote-1.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+            <div><b>Valen Ink</b><a href="https://instagram.com/valen.ink.ttt" rel="noopener">@valen.ink.ttt</a> · Santiago, 8 años tatuando</div>
+          </footer>
         </blockquote>
         <blockquote class="quote">
           <p>He perdido clientes buenos por no aceptar tarjeta. Si puedo ofrecer cuotas sin andar con una máquina, cambio altiro.</p>
-          <footer>Tatuador, 5 años · Viña del Mar</footer>
+          <footer>
+            <div class="avatar v2">RC<img src="/img/quote-2.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+            <div><b>Rojo Carmesí</b><a href="https://instagram.com/rojocarmesi.tattoo" rel="noopener">@rojocarmesi.tattoo</a> · Valparaíso, 5 años tatuando</div>
+          </footer>
         </blockquote>
         <blockquote class="quote">
           <p>Lo que más me gusta es que no hay mensualidad. Las apps de agenda que probé me cobraban igual los meses malos.</p>
-          <footer>Tatuadora, 3 años · Concepción</footer>
+          <footer>
+            <div class="avatar v3">NM<img src="/img/quote-3.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+            <div><b>Nico Madrid</b><a href="https://instagram.com/nicomadrid.ink" rel="noopener">@nicomadrid.ink</a> · Concepción, 3 años tatuando</div>
+          </footer>
         </blockquote>
       </div>
     </div>
@@ -465,13 +500,15 @@
     <div class="wrap">
       <h2>Hecho por gente del oficio, para tatuadores</h2>
       <div class="team">
-        <!-- ⚠️ PLACEHOLDER: reemplazar iniciales por fotos reales del equipo cuando las tengan -->
+        <!-- ⚠️ VERIFICAR nombres reales de los socios antes de publicar. Las fotos
+             (landing/img/equipo-1.jpg / -2 / -3, cuadradas) reemplazan solas a las
+             iniciales cuando existan. -->
         <div class="team-faces" aria-hidden="true">
-          <div class="avatar">J</div>
-          <div class="avatar v2">F</div>
-          <div class="avatar v3">C</div>
+          <div class="avatar">J<img src="/img/equipo-1.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+          <div class="avatar v2">F<img src="/img/equipo-2.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+          <div class="avatar v3">C<img src="/img/equipo-3.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
         </div>
-        <p>Somos <b>tres socios chilenos</b> — un abogado, una ingeniera comercial y un administrador público — construyendo la herramienta que los tatuadores independientes nos pidieron en persona: <b>cobrar con tarjeta sin mensualidad y sin no-shows</b>. Partimos chico, con un grupo fundador que nos ayuda a armarla bien.</p>
+        <p>Somos <b>tres socios chilenos</b>: <b>Javier</b> (abogado), <b>Francisca</b> (ingeniera comercial) y <b>Carlos</b> (administrador público). Estamos construyendo la herramienta que los tatuadores independientes nos pidieron en persona: <b>cobrar con tarjeta sin mensualidad y sin no-shows</b>. Partimos chico, con un grupo fundador que nos ayuda a armarla bien.</p>
       </div>
     </div>
   </section>
@@ -479,7 +516,9 @@
   <section class="reveal">
     <div class="wrap faq">
       <h2>Preguntas frecuentes</h2>
-      <details>
+      <!-- La primera va abierta a propósito: muestra que el acordeón es interactivo
+           y deja contenido indexable visible para SEO. -->
+      <details open>
         <summary>¿Qué pasarela de pago usan?</summary>
         <p><b>Mercado Pago.</b> El pago de tu cliente va directo a tu cuenta de Mercado Pago — tatupay nunca guarda tu plata. Aceptamos las tarjetas de crédito, débito y prepago que acepta Mercado Pago en Chile.</p>
       </details>
@@ -522,7 +561,10 @@
         <div><label for="name">Nombre o nombre artístico</label><input id="name" name="name" required maxlength="80" autocomplete="name"></div>
         <div><label for="ig">Instagram (@usuario)</label><input id="ig" name="instagram" required maxlength="60" placeholder="@"></div>
         <div><label for="city">Ciudad</label><input id="city" name="city" required maxlength="60"></div>
-        <div><label for="phone">WhatsApp</label><input id="phone" name="phone" type="tel" required maxlength="20" placeholder="+56 9 …" autocomplete="tel" pattern="[+0-9 ()-]{8,20}"></div>
+        <div><label for="phone">WhatsApp</label><input id="phone" name="phone" type="tel" required maxlength="20" placeholder="+56 9 …" autocomplete="tel" pattern="[+0-9 \(\)\-]{8,20}"></div>
+        <!-- honeypot: campo invisible que solo llenan los bots (el backend descarta esos envíos) -->
+        <div class="hp" aria-hidden="true"><label for="website">No llenar este campo</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+        <div class="turnstile-slot" id="turnstile-slot"></div>
         <label class="terms"><input type="checkbox" id="terms" required>
           <span>Acepto los <a href="/terminos.html">términos y condiciones</a> y la <a href="/privacidad.html">política de privacidad</a>.</span></label>
         <button class="cta pulse" type="submit" style="margin-top:6px">Quiero estar en el grupo fundador</button>
@@ -554,6 +596,21 @@
 <script>
 document.documentElement.classList.add('js');
 
+// ---- anti-spam ----
+// Trampa de tiempo: los bots envían el formulario en milisegundos; una persona no.
+const T0 = performance.now();
+// Cloudflare Turnstile (opcional): pegar aquí el site key para activar el widget.
+// El secret correspondiente va como variable TURNSTILE_SECRET en el Worker.
+const TURNSTILE_SITE_KEY = '';
+if (TURNSTILE_SITE_KEY) {
+  const slot = document.getElementById('turnstile-slot');
+  slot.innerHTML = '<div class="cf-turnstile" data-sitekey="' + TURNSTILE_SITE_KEY + '" data-theme="dark"></div>';
+  const s = document.createElement('script');
+  s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+  s.async = s.defer = true;
+  document.head.appendChild(s);
+}
+
 // ---- waitlist: envío ----
 document.getElementById('wl-form').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -561,6 +618,8 @@ document.getElementById('wl-form').addEventListener('submit', async (e) => {
   if (!form.checkValidity()) { form.reportValidity(); return; }
   const data = Object.fromEntries(new FormData(form).entries());
   delete data.terms;
+  data.elapsed = Math.round(performance.now() - T0);
+  if (TURNSTILE_SITE_KEY && window.turnstile) data.turnstile = turnstile.getResponse() || '';
   const ok = document.getElementById('wl-ok'), err = document.getElementById('wl-err');
   ok.classList.remove('ok'); err.classList.remove('err');
   try {
@@ -576,6 +635,14 @@ document.getElementById('wl-form').addEventListener('submit', async (e) => {
   } catch {
     err.classList.add('err');
   }
+});
+
+// ---- fotos reales del portafolio del mockup (si existen en /img/) ----
+document.querySelectorAll('.port > div').forEach((slot, i) => {
+  const img = new Image();
+  img.alt = ''; img.loading = 'lazy';
+  img.onload = () => slot.appendChild(img);
+  img.src = '/img/port-' + (i + 1) + '.jpg';
 });
 
 // ---- validación visual en vivo ----
