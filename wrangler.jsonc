@@ -22,7 +22,7 @@
   // 2. Pegar el id que entrega el comando y descomentar el bloque:
   //
   // "kv_namespaces": [
-  //   { "binding": "WAITLIST", "id": "PEGA_AQUI_EL_ID_DEL_NAMESPACE" }
+  //   { "binding": "WAITLIST", "id": "736140d15b5c4f65aa035b566fcf4df3" }
   // ],
   //
   // Mientras el binding no exista, la landing funciona igual: el formulario
