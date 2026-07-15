@@ -55,12 +55,19 @@ export function welcomeEmailHtml(name) {
 <body style="margin:0;padding:0;background:#0E0E0E" bgcolor="#0E0E0E">
 <!-- preheader oculto -->
 <div style="display:none;max-height:0;overflow:hidden;mso-hide:all">Tarifa fundadora 3,9% + IVA de por vida. Te contamos qué viene ahora.&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>
+<!-- Cada td carga su propio bgcolor: Gmail y otros clientes eliminan el fondo del
+     body, y todo lo que "herede" el fondo termina sobre el lienzo del cliente
+     (blanco en varios). Nada de texto claro puede depender de un fondo heredado. -->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#0E0E0E" style="background:#0E0E0E">
-<tr><td align="center" style="padding:32px 16px">
+<tr><td align="center" bgcolor="#0E0E0E" style="background:#0E0E0E;padding:24px 12px">
   <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%">
+  <!-- contenedor maestro oscuro: si el cliente muestra su propio margen alrededor,
+       esto se ve como una tarjeta redondeada intencional, no como un fondo roto -->
+  <tr><td bgcolor="#0E0E0E" style="background:#0E0E0E;border-radius:14px;padding:24px 20px">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
 
     <!-- wordmark -->
-    <tr><td style="padding:0 8px 24px;font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:26px;font-weight:800;letter-spacing:-.03em">
+    <tr><td bgcolor="#0E0E0E" style="background:#0E0E0E;padding:0 8px 20px;font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:26px;font-weight:800;letter-spacing:-.03em">
       <span style="color:#F4EFE6">tatu</span><span style="color:#00E676">pay</span>
     </td></tr>
 
@@ -109,14 +116,16 @@ export function welcomeEmailHtml(name) {
     </td></tr>
 
     <!-- footer -->
-    <tr><td style="padding:20px 8px 0;font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-      <p style="margin:0;color:#57524a;font-size:12px;line-height:1.6">
-        <a href="https://tatupay.cl" style="color:#57524a">tatupay.cl</a> · hecho en Chile 🇨🇱 para tatuadores independientes<br>
+    <tr><td bgcolor="#0E0E0E" style="background:#0E0E0E;padding:20px 8px 0;font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+      <p style="margin:0;color:#8A847B;font-size:12px;line-height:1.6">
+        <a href="https://tatupay.cl" style="color:#8A847B">tatupay.cl</a> · hecho en Chile 🇨🇱 para tatuadores independientes<br>
         Recibiste este correo porque te inscribiste en la lista fundadora en tatupay.cl.
         ¿No fuiste tú? Responde este correo y te sacamos altiro.
       </p>
     </td></tr>
 
+  </table>
+  </td></tr>
   </table>
 </td></tr>
 </table>
