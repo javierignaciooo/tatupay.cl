@@ -7,7 +7,7 @@ Mientras un archivo no exista, se muestra el fallback (iniciales o ilustración)
 |---|---|---|
 | `artista-1.jpg` … `artista-3.jpg` | Avatares de "Artistas fundadores" | cuadrada, ≥400×400 |
 | `quote-1.jpg` … `quote-3.jpg` | Avatares de los testimonios | cuadrada, ≥400×400 |
-| `equipo-1.jpg` … `equipo-3.jpg` | Avatares del equipo (Javier, Francisca, Carlos) | cuadrada, ≥400×400 |
+| `equipo-1.jpg` … `equipo-3.jpg` | Avatares del equipo (Javier, Ámbar, Franco) | cuadrada, ≥400×400 |
 | `port-1.jpg` … `port-3.jpg` | Portafolio del mockup "Así se ve tatupay" | cuadrada, ≥600×600, fotos de tatuajes |
 
 Reglas:

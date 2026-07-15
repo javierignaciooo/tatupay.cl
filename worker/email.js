@@ -34,7 +34,7 @@ QUÉ VIENE AHORA
 Mientras tanto: responde este correo con tu Instagram o portafolio, o escríbenos
 a @tatupay.cl. Leemos todo.
 
-— Javier, Francisca y Carlos
+— el equipo de tatupay
 tatupay.cl · hecho en Chile para tatuadores independientes
 
 Recibiste este correo porque te inscribiste en la lista fundadora en tatupay.cl.
@@ -105,7 +105,7 @@ export function welcomeEmailHtml(name) {
         <a href="https://instagram.com/tatupay.cl" style="color:#00E676;text-decoration:none">@tatupay.cl</a>. Leemos todo.
       </p>
 
-      <p style="margin:24px 0 0;color:#F4EFE6;font-size:15px;line-height:1.6">— Javier, Francisca y Carlos</p>
+      <p style="margin:24px 0 0;color:#F4EFE6;font-size:15px;line-height:1.6">— el equipo de tatupay</p>
     </td></tr>
 
     <!-- footer -->
