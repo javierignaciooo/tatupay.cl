@@ -20,7 +20,7 @@ export async function handleWaitlistGet(request, env) {
       return json({ ok: false, error: 'unauthorized' }, 401);
     }
     if (!env.WAITLIST) return json({ ok: false, error: 'waitlist storage not configured' }, 503);
-    const rows = [['fecha', 'nombre', 'instagram', 'ciudad', 'whatsapp', 'ip']];
+    const rows = [['fecha', 'nombre', 'instagram', 'ciudad', 'whatsapp', 'email', 'ip']];
     let cursor;
     do {
       const page = await env.WAITLIST.list({ prefix: 'wl:', cursor });
@@ -29,7 +29,7 @@ export async function handleWaitlistGet(request, env) {
         if (!raw) continue;
         try {
           const e = JSON.parse(raw);
-          rows.push([e.ts, e.name, e.instagram, e.city, e.phone, e.ip]);
+          rows.push([e.ts, e.name, e.instagram, e.city, e.phone, e.email, e.ip]);
         } catch { /* entrada corrupta: se omite */ }
       }
       cursor = page.list_complete ? undefined : page.cursor;
@@ -98,12 +98,16 @@ export async function handleWaitlistPost(request, env) {
     instagram: clean(data.instagram, 60).replace(/^@+/, '').toLowerCase(),
     city: clean(data.city, 60),
     phone: clean(data.phone, 20),
+    email: clean(data.email, 120).toLowerCase(),
     ts: new Date().toISOString(),
     ip: request.headers.get('cf-connecting-ip') ?? '',
   };
 
-  if (!entry.name || !entry.instagram || !entry.city || !entry.phone) {
+  if (!entry.name || !entry.instagram || !entry.city || !entry.phone || !entry.email) {
     return json({ ok: false, error: 'missing fields' }, 400);
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(entry.email)) {
+    return json({ ok: false, error: 'invalid email' }, 400);
   }
 
   // Idempotente por handle de Instagram: reenviar el formulario no duplica el registro.

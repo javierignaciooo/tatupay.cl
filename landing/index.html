@@ -562,6 +562,7 @@
         <div><label for="ig">Instagram (@usuario)</label><input id="ig" name="instagram" required maxlength="60" placeholder="@"></div>
         <div><label for="city">Ciudad</label><input id="city" name="city" required maxlength="60"></div>
         <div><label for="phone">WhatsApp</label><input id="phone" name="phone" type="tel" required maxlength="20" placeholder="+56 9 …" autocomplete="tel" pattern="[+0-9 \(\)\-]{8,20}"></div>
+        <div><label for="email">Email</label><input id="email" name="email" type="email" required maxlength="120" placeholder="tu@correo.cl" autocomplete="email"></div>
         <!-- honeypot: campo invisible que solo llenan los bots (el backend descarta esos envíos) -->
         <div class="hp" aria-hidden="true"><label for="website">No llenar este campo</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
         <div class="turnstile-slot" id="turnstile-slot"></div>
@@ -573,7 +574,7 @@
           Tus datos viajan cifrados (SSL) y los usamos solo para contactarte por tatupay. Nada de spam.
         </div>
       </form>
-      <div id="wl-ok" class="msg">✔ Listo. Estás en la lista fundadora — te contactaremos por WhatsApp o Instagram.</div>
+      <div id="wl-ok" class="msg">✔ Listo. Estás en la lista fundadora — te contactaremos por WhatsApp, Instagram o correo.</div>
       <div id="wl-err" class="msg">No pudimos guardar tu registro en este momento. Escríbenos directo por Instagram a <a href="https://instagram.com/tatupay.cl" rel="noopener">@tatupay.cl</a> y quedas dentro igual.</div>
     </div>
   </section>
