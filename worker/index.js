@@ -3,11 +3,11 @@
 import { handleWaitlistGet, handleWaitlistPost } from './waitlist.js';
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname === '/api/waitlist') {
       if (request.method === 'GET') return handleWaitlistGet(request, env);
-      if (request.method === 'POST') return handleWaitlistPost(request, env);
+      if (request.method === 'POST') return handleWaitlistPost(request, env, ctx);
       return new Response('method not allowed', { status: 405, headers: { allow: 'GET, POST' } });
     }
     return env.ASSETS.fetch(request);

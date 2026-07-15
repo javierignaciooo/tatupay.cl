@@ -4,6 +4,8 @@
 // Guarda en un KV binding llamado WAITLIST. Sin el binding, POST responde 503
 // (el frontend muestra el fallback a Instagram) y GET responde count: 0.
 
+import { sendWelcomeEmail } from './email.js';
+
 const json = (body, status = 200, extra = {}) =>
   new Response(JSON.stringify(body), {
     status,
@@ -62,7 +64,7 @@ export async function handleWaitlistGet(request, env) {
 // Anti-spam en capas: honeypot (campo "website"), trampa de tiempo (elapsed) y
 // Cloudflare Turnstile si TURNSTILE_SECRET está configurado. A los bots que caen
 // en el honeypot se les responde ok:true para no delatar el filtro.
-export async function handleWaitlistPost(request, env) {
+export async function handleWaitlistPost(request, env, ctx) {
   if (!env.WAITLIST) return json({ ok: false, error: 'waitlist storage not configured' }, 503);
 
   let data;
@@ -117,6 +119,11 @@ export async function handleWaitlistPost(request, env) {
   const key = `wl:${entry.ts}:${crypto.randomUUID()}`;
   await env.WAITLIST.put(key, JSON.stringify(entry));
   await env.WAITLIST.put(dedupeKey, key);
+
+  // Correo de bienvenida en segundo plano: no demora la respuesta al formulario
+  // y un fallo de correo no afecta el registro (ya quedó en KV).
+  const send = sendWelcomeEmail(env, entry);
+  if (ctx?.waitUntil) ctx.waitUntil(send); else await send;
 
   return json({ ok: true });
 }

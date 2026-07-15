@@ -37,10 +37,19 @@ sirve `landing/` como estático y el Worker `worker/index.js` atiende `/api/wait
 3. (Recomendado) En el Worker → **Settings → Variables and Secrets** agrega `ADMIN_KEY` (un string
    secreto inventado por ti). Con eso puedes **descargar los registros en Excel/CSV**:
    `https://tatupay.cl/api/waitlist?format=csv&key=TU_ADMIN_KEY`
-4. (Opcional, anti-bots extra) Turnstile: dashboard → **Turnstile → Add site** → dominio `tatupay.cl`.
+4. **Correo de bienvenida automático** (Resend, gratis hasta 3.000 envíos/mes): al registrarse,
+   cada artista recibe el correo de bienvenida del grupo fundador (`worker/email.js`). Setup una vez:
+   - Crea cuenta en [resend.com](https://resend.com) → **Domains → Add domain** → `tatupay.cl` →
+     agrega en Cloudflare (**DNS → Records**) los registros TXT/MX que Resend te muestra → Verify.
+   - En Resend: **API Keys → Create** (permiso "Sending access") → copia la key.
+   - En el Worker: **Settings → Variables and Secrets → Add** → tipo **Secret**, nombre
+     `RESEND_API_KEY`, valor la key. Listo — sin este secreto todo funciona igual, solo no se envía correo.
+   - Para recibir las respuestas (llegan a `hola@tatupay.cl`): Cloudflare → **Email → Email Routing** →
+     crea la dirección `hola@tatupay.cl` y reenvíala al correo de los socios.
+5. (Opcional, anti-bots extra) Turnstile: dashboard → **Turnstile → Add site** → dominio `tatupay.cl`.
    El **site key** se pega en `landing/index.html` (constante `TURNSTILE_SITE_KEY`) y el **secret**
    como variable `TURNSTILE_SECRET` del Worker. Sin esto igual hay honeypot + trampa de tiempo.
-5. **Custom domain**: Worker → Settings → Domains & Routes → agregar `tatupay.cl`.
+6. **Custom domain**: Worker → Settings → Domains & Routes → agregar `tatupay.cl`.
 
 También puedes ver los registros uno a uno en el dashboard: KV → namespace → entradas `wl:*`
 (JSON con nombre, IG, ciudad, WhatsApp, fecha).

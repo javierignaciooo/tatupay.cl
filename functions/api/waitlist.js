@@ -4,4 +4,5 @@
 import { handleWaitlistGet, handleWaitlistPost } from '../../worker/waitlist.js';
 
 export const onRequestGet = ({ request, env }) => handleWaitlistGet(request, env);
-export const onRequestPost = ({ request, env }) => handleWaitlistPost(request, env);
+export const onRequestPost = (context) =>
+  handleWaitlistPost(context.request, context.env, context);
