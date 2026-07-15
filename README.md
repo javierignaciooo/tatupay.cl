@@ -16,6 +16,7 @@ pricing, fases, costos, riesgos y checkpoints de revisión. Toda decisión nueva
 | `docs/entrevistas/resultados.md` | Consolidado semanal de entrevistas → input del checkpoint C1 (ir llenando a medida que se entrevista) |
 | `docs/brand/manual-de-marca.md` | Manual de marca: paleta, tono, wordmark, y plan de activación de Instagram |
 | `docs/legal/boletas-y-tributacion-tatuadores.md` | Memo: obligación de boleta por abonos, informalidad del gremio y opciones de diseño |
+| `docs/finanzas/fondos-corfo.md` | Informe: qué fondos Corfo calzan con tatupay y cuándo (Semilla Expande como objetivo año 2) |
 | `landing/` | Landing de captación + waitlist (HTML estático + fotos en `landing/img/`) |
 | `worker/` | Backend de la waitlist (`/api/waitlist`) — se despliega como Cloudflare Worker |
 | `functions/` | Entrada alternativa del mismo backend si el proyecto corre en Cloudflare **Pages** |
