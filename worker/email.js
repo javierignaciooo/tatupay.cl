@@ -9,6 +9,10 @@
 const FROM = 'tatupay <hola@tatupay.cl>';
 const REPLY_TO = 'hola@tatupay.cl';
 const SUBJECT = 'Estás dentro: grupo fundador de tatupay';
+// Encuesta de Fase 0 (Google Forms). Responderla es lo que confirma la tarifa
+// fundadora: estamos en etapa de validación, sin plataforma aún, así que lo único
+// que se ofrece hoy es la tarifa — nunca prometer páginas ni fechas de producto.
+const SURVEY_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScEiq2j467AwSxW0fihbqIDxgSxyTEwfoo-cFt6hNls_QoTPA/viewform';
 
 const escapeHtml = (s) =>
   String(s).replace(/[&<>"']/g, (c) =>
@@ -21,18 +25,27 @@ export function welcomeEmailText(name) {
   const n = firstName(name);
   return `Hola ${n} — estás dentro.
 
-Quedaste en el grupo fundador de tatupay. Eso significa una sola cosa concreta:
-comisión 3,9% + IVA por cobro exitoso, de por vida. La tarifa general será 4,9%.
-Sin mensualidad: si un mes no cobras, no pagas nada.
+Quedaste inscrito en el grupo fundador de tatupay, con la tarifa fundadora
+reservada a tu nombre: 3,9% + IVA por cobro exitoso, de por vida (la tarifa
+general será 4,9%). Sin mensualidad: si un mes no cobras, no pagas nada.
 
-QUÉ VIENE AHORA
-1. En las próximas semanas te escribimos por WhatsApp para conocer cómo trabajas.
-2. Armamos tu página pública con tu portafolio y tus horas.
-3. Partimos el piloto en 2-3 meses: tus clientes reservan y pagan el abono con
-   tarjeta, y la hora se bloquea solo si el abono está pagado. Chao no-shows.
+UN PASO PARA ASEGURARLA
+La tarifa fundadora se confirma respondiendo nuestra encuesta — 5 a 7 minutos,
+desde el teléfono:
 
-Mientras tanto: responde este correo con tu Instagram o portafolio, o escríbenos
-a @tatupay.cl. Leemos todo.
+${SURVEY_URL}
+
+¿Por qué? tatupay está en etapa de diseño: todavía no hay plataforma que
+mostrar, y el grupo fundador es exactamente eso — los artistas cuyas
+respuestas definen qué construimos y cómo. Si prefieres conversar en vez de
+llenar un formulario, responde este correo y coordinamos una llamada corta:
+también confirma tu tarifa.
+
+QUÉ VIENE DESPUÉS
+1. Con las respuestas del grupo fundador terminamos de diseñar la herramienta.
+2. Te avisamos cuando el piloto esté listo para partir.
+3. Tú decides si te sumas — estar en la lista no te compromete a nada ni
+   tiene costo.
 
 — el equipo de tatupay
 tatupay.cl · hecho en Chile para tatuadores independientes
@@ -79,7 +92,7 @@ export function welcomeEmailHtml(name) {
       </h1>
 
       <p style="margin:0 0 20px;color:#B8AFA6;font-size:16px;line-height:1.6">
-        Quedaste en el <strong style="color:#F4EFE6">grupo fundador de tatupay</strong>. Eso significa una sola cosa concreta:
+        Quedaste inscrito en el <strong style="color:#F4EFE6">grupo fundador de tatupay</strong>, con la tarifa fundadora reservada a tu nombre:
       </p>
 
       <!-- bloque tarifa -->
@@ -90,27 +103,39 @@ export function welcomeEmailHtml(name) {
         </td>
       </tr></table>
 
-      <h2 style="margin:28px 0 12px;color:#F4EFE6;font-size:16px;font-weight:800;letter-spacing:-.02em">Qué viene ahora</h2>
+      <h2 style="margin:28px 0 12px;color:#F4EFE6;font-size:16px;font-weight:800;letter-spacing:-.02em">Un paso para asegurarla</h2>
+
+      <p style="margin:0 0 18px;color:#B8AFA6;font-size:15px;line-height:1.6">
+        La tarifa fundadora se confirma respondiendo nuestra encuesta — <strong style="color:#F4EFE6">5 a 7 minutos, desde el teléfono</strong>:
+      </p>
+
+      <!-- botón encuesta -->
+      <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+        <td bgcolor="#00E676" style="background:#00E676;border-radius:10px">
+          <a href="${SURVEY_URL}" style="display:inline-block;padding:13px 26px;color:#0E0E0E;font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;text-decoration:none">Responder la encuesta</a>
+        </td>
+      </tr></table>
+
+      <p style="margin:18px 0 0;color:#B8AFA6;font-size:14px;line-height:1.6">
+        ¿Por qué? tatupay está en <strong style="color:#F4EFE6">etapa de diseño</strong>: todavía no hay plataforma que mostrar, y el grupo fundador es exactamente eso — los artistas cuyas respuestas definen qué construimos y cómo. Si prefieres conversar en vez de llenar un formulario, <strong style="color:#F4EFE6">responde este correo</strong> y coordinamos una llamada corta: también confirma tu tarifa.
+      </p>
+
+      <h2 style="margin:28px 0 12px;color:#F4EFE6;font-size:16px;font-weight:800;letter-spacing:-.02em">Qué viene después</h2>
 
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <td valign="top" style="padding:6px 12px 6px 0;color:#00E676;font-family:ui-monospace,Menlo,monospace;font-size:13px;white-space:nowrap">PASO 01</td>
-          <td style="padding:6px 0;color:#B8AFA6;font-size:15px;line-height:1.6">En las próximas semanas te escribimos por WhatsApp para conocer cómo trabajas.</td>
+          <td style="padding:6px 0;color:#B8AFA6;font-size:15px;line-height:1.6">Con las respuestas del grupo fundador terminamos de diseñar la herramienta.</td>
         </tr>
         <tr>
           <td valign="top" style="padding:6px 12px 6px 0;color:#00E676;font-family:ui-monospace,Menlo,monospace;font-size:13px;white-space:nowrap">PASO 02</td>
-          <td style="padding:6px 0;color:#B8AFA6;font-size:15px;line-height:1.6">Armamos tu página pública con tu portafolio y tus horas disponibles.</td>
+          <td style="padding:6px 0;color:#B8AFA6;font-size:15px;line-height:1.6">Te avisamos cuando el piloto esté listo para partir.</td>
         </tr>
         <tr>
           <td valign="top" style="padding:6px 12px 6px 0;color:#00E676;font-family:ui-monospace,Menlo,monospace;font-size:13px;white-space:nowrap">PASO 03</td>
-          <td style="padding:6px 0;color:#B8AFA6;font-size:15px;line-height:1.6">Piloto en 2–3 meses: tus clientes pagan el abono con tarjeta y la hora se bloquea solo si el abono está pagado. Chao no-shows.</td>
+          <td style="padding:6px 0;color:#B8AFA6;font-size:15px;line-height:1.6">Tú decides si te sumas — estar en la lista no te compromete a nada ni tiene costo.</td>
         </tr>
       </table>
-
-      <p style="margin:24px 0 0;color:#B8AFA6;font-size:15px;line-height:1.6">
-        Mientras tanto: <strong style="color:#F4EFE6">responde este correo</strong> con tu Instagram o portafolio, o escríbenos a
-        <a href="https://instagram.com/tatupay.cl" style="color:#00E676;text-decoration:none">@tatupay.cl</a>. Leemos todo.
-      </p>
 
       <p style="margin:24px 0 0;color:#F4EFE6;font-size:15px;line-height:1.6">— el equipo de tatupay</p>
     </td></tr>

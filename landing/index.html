@@ -52,6 +52,20 @@
   .sub{margin-top:20px;font-size:1.12rem;color:var(--skin);max-width:38rem}
   .hero-art{display:flex;justify-content:center}
   .hero-art svg{width:100%;max-width:340px;height:auto;filter:drop-shadow(0 0 24px rgba(0,230,118,.18))}
+  /* la máquina vibra apenas (está "funcionando") y la línea de tinta se dibuja sola */
+  .hero-art .buzz{animation:buzz .16s steps(2) infinite}
+  @keyframes buzz{from{transform:translateY(0)}to{transform:translateY(.9px)}}
+  .hero-art .ink-line{stroke-dasharray:100;stroke-dashoffset:100;animation:draw 5.5s ease-in-out infinite}
+  @keyframes draw{
+    0%{stroke-dashoffset:100;opacity:0}
+    8%{opacity:.9}
+    55%,84%{stroke-dashoffset:0;opacity:.9}
+    100%{stroke-dashoffset:0;opacity:0}
+  }
+  .hero-art .spark{opacity:.5;animation:sparkle 2.2s ease-in-out infinite}
+  .hero-art .s-b{animation-delay:.7s}
+  .hero-art .s-c{animation-delay:1.3s}
+  @keyframes sparkle{0%,100%{opacity:.15}50%{opacity:.7}}
   .counter{display:none;margin-top:18px;font-size:.92rem;color:var(--skin)}
   .counter strong{color:var(--neon)}
 
@@ -120,6 +134,8 @@
     .screen.s1{opacity:1}
     .cta.pulse{animation:none}
     .reveal{opacity:1 !important;transform:none !important;transition:none !important}
+    .hero-art .buzz,.hero-art .ink-line,.hero-art .spark{animation:none}
+    .hero-art .ink-line{stroke-dashoffset:0}
   }
 
   /* ---------- mockups producto ---------- */
@@ -253,40 +269,55 @@
   <div class="wrap hero">
     <div>
       <h1>Cobra con tarjeta.<br>Llena tu agenda.<br><em>Cero mensualidad.</em></h1>
-      <p class="sub">tatupay es la agenda pública + cobro de reserva para tatuadores independientes en Chile.
+      <p class="sub">Estamos construyendo tatupay: la agenda pública + cobro de reserva para tatuadores independientes en Chile.
       Tu cliente elige la hora y paga el abono con tarjeta — crédito en cuotas incluido —
       y la hora se bloquea <strong>solo cuando el abono está pagado</strong>. Chao no-shows.</p>
       <a class="cta pulse" href="#waitlist">Únete a la lista fundadora</a>
-      <a class="cta-sec" href="#como">¿Cómo funciona?</a>
+      <a class="cta-sec" href="#como">¿Cómo va a funcionar?</a>
       <p class="counter" id="counter"><strong id="counter-n"></strong> artistas ya se sumaron a la lista fundadora</p>
     </div>
     <div class="hero-art" aria-hidden="true">
-      <!-- Máquina de tatuar, line-art neón -->
+      <!-- Máquina de tatuar (line-art neón): cuerpo con bobinas, tornillo de contacto,
+           mordaza del tubo, grip y aguja. Inclinada 18° como si estuviera dibujando la
+           línea de tinta (que se anima sola vía stroke-dashoffset). -->
       <svg viewBox="0 0 200 220" fill="none" stroke="#00E676" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-        <!-- frame de la máquina -->
-        <path d="M70 46 L112 46 L118 60 L106 66 L78 66 L64 60 Z"/>
-        <!-- bobinas -->
-        <circle cx="84" cy="88" r="13"/>
-        <circle cx="84" cy="88" r="6" opacity=".55"/>
-        <circle cx="84" cy="120" r="13"/>
-        <circle cx="84" cy="120" r="6" opacity=".55"/>
-        <path d="M84 66 L84 75 M84 101 L84 107 M84 133 L84 142"/>
-        <!-- grip y aguja -->
-        <path d="M78 142 L90 142 L92 168 L76 168 Z"/>
-        <path d="M80 168 L88 168 L86 186 L82 186 Z"/>
-        <path d="M84 186 L84 200"/>
-        <!-- resorte / barra superior -->
-        <path d="M106 66 L106 52 M112 46 L126 38" opacity=".7"/>
-        <!-- chispas / tinta -->
-        <path d="M84 206 L84 209" opacity=".8"/>
-        <circle cx="76" cy="209" r="1.4" fill="#00E676" stroke="none" opacity=".7"/>
-        <circle cx="92" cy="212" r="1.4" fill="#00E676" stroke="none" opacity=".5"/>
-        <!-- línea que la aguja va dibujando -->
-        <path d="M84 209 C 96 216, 118 214, 132 204 S 158 182, 172 186" opacity=".85"/>
-        <!-- destellos -->
-        <path d="M132 96 L132 104 M128 100 L136 100" opacity=".6"/>
-        <path d="M46 130 L46 136 M43 133 L49 133" opacity=".45"/>
-        <path d="M150 60 L150 66 M147 63 L153 63" opacity=".5"/>
+        <g transform="translate(14 0)">
+          <g class="buzz">
+            <g transform="rotate(18 70 190)">
+              <!-- tornillo de contacto y poste -->
+              <path d="M70 30 L70 24"/>
+              <rect x="64" y="30" width="12" height="8" rx="2.5"/>
+              <path d="M70 45 L70 38"/>
+              <!-- cuerpo de la máquina -->
+              <rect x="48" y="45" width="44" height="82" rx="12"/>
+              <!-- bobinas -->
+              <circle cx="70" cy="70" r="13"/>
+              <circle cx="70" cy="70" r="5.5" opacity=".55"/>
+              <circle cx="70" cy="102" r="13"/>
+              <circle cx="70" cy="102" r="5.5" opacity=".55"/>
+              <!-- mordaza del tubo + mariposa -->
+              <path d="M60 127 L80 127 L76 140 L64 140 Z"/>
+              <path d="M78 133 L86 133" opacity=".8"/>
+              <circle cx="89.5" cy="133" r="2.6"/>
+              <!-- grip -->
+              <path d="M64 140 L76 140 L74.5 170 L65.5 170 Z"/>
+              <path d="M65.4 149 L74.6 149" opacity=".6"/>
+              <path d="M65.2 157 L74.8 157" opacity=".6"/>
+              <!-- punta del tubo y aguja -->
+              <path d="M65.5 170 L74.5 170 L71.5 182 L68.5 182 Z"/>
+              <path d="M70 182 L70 190"/>
+            </g>
+          </g>
+          <!-- línea que la aguja va dibujando (termina justo en la punta de la aguja) -->
+          <path class="ink-line" pathLength="100" d="M18 197 C 32 205, 52 202, 70 190"/>
+          <!-- gotas de tinta -->
+          <circle cx="34" cy="207" r="1.6" fill="#00E676" stroke="none" opacity=".65"/>
+          <circle cx="52" cy="205" r="1.4" fill="#00E676" stroke="none" opacity=".45"/>
+          <!-- destellos -->
+          <path class="spark" d="M150 56 L150 64 M146 60 L154 60"/>
+          <path class="spark s-b" d="M36 116 L36 122 M33 119 L39 119"/>
+          <path class="spark s-c" d="M140 148 L140 156 M136 152 L144 152"/>
+        </g>
       </svg>
     </div>
   </div>
@@ -313,7 +344,7 @@
 
   <section id="como" class="reveal">
     <div class="wrap">
-      <h2>Cómo funciona</h2>
+      <h2>Cómo va a funcionar</h2>
       <!-- Una sola sección de flujo: el teléfono animado es el protagonista y los
            pasos de al lado llevan todo el detalle (antes había dos secciones que
            se repetían: las tarjetas PASO 01–03 y esta demo). -->
@@ -360,7 +391,7 @@
 
   <section class="reveal">
     <div class="wrap">
-      <h2>Así se ve tatupay</h2>
+      <h2>Así se va a ver tatupay</h2>
       <div class="mock-grid">
         <div class="mock">
           <div class="mock-bar"><i></i><i></i><i></i><span>tatupay.cl/valen.ink</span></div>
@@ -421,7 +452,7 @@
       <div class="price-box">
         <p class="rate">3,9% <small>+ IVA por cobro exitoso · tarifa fundadora, de por vida</small></p>
         <p class="big" style="margin-top:14px">Sin mensualidad. Sin inscripción. Sin permanencia.</p>
-        <p>Pagamos cuando tú cobras: una comisión única por cada cobro exitoso, que ya incluye el costo de la tarjeta. Si un mes no cobras, no pagas nada. La tarifa general será 4,9% + IVA — el <strong style="color:var(--bone)">grupo fundador</strong> se queda en 3,9% para siempre.</p>
+        <p>Pagamos cuando tú cobras: una comisión única por cada cobro exitoso, que ya incluye el costo de la tarjeta. Si un mes no cobras, no pagas nada. La tarifa general será 4,9% + IVA — el <strong style="color:var(--bone)">grupo fundador</strong> se queda en 3,9% para siempre. La tarifa fundadora se asegura inscribiéndote en la lista y respondiendo una encuesta corta que nos ayuda a diseñar tatupay.</p>
 
         <div class="calc">
           <label for="calc-monto">Si cobras un abono de <output id="calc-val">$50.000</output></label>
@@ -444,14 +475,15 @@
     </div>
   </section>
 
-  <!-- ⚠️ PLACEHOLDERS: los 3 artistas y las 3 citas de abajo son EJEMPLOS INVENTADOS
-       para diseño. Reemplazar por artistas reales de la waitlist (con su permiso por
-       escrito) ANTES de publicar esta sección. Para lanzar sin datos reales, ocultar
-       las dos secciones agregando hidden al <section>.
+  <!-- ⚠️ SECCIÓN OCULTA (hidden): los 3 artistas y las 3 citas son EJEMPLOS INVENTADOS
+       para diseño — no pueden estar publicados (publicidad engañosa + los @handles
+       podrían pertenecer a personas reales). Para activarla: reemplazar por artistas
+       reales de la waitlist CON SU PERMISO POR ESCRITO (candidatos: los entrevistados
+       comprometidos de docs/entrevistas/resultados.md) y quitar el hidden.
        FOTOS: al subir landing/img/artista-1.jpg / -2 / -3 (cuadradas, ~400px) las
        fotos reemplazan solas a las iniciales — sin tocar el HTML. Lo mismo para las
        citas con landing/img/quote-1.jpg / -2 / -3. -->
-  <section class="reveal">
+  <section class="reveal" hidden>
     <div class="wrap">
       <h2>Artistas fundadores</h2>
       <div class="artists">
@@ -555,7 +587,8 @@
   <section id="waitlist" class="reveal">
     <div class="wrap">
       <h2>Lista fundadora</h2>
-      <p class="sub" style="margin-top:-10px;margin-bottom:24px">Partimos con un grupo chico de tatuadores. Déjanos tus datos y te contactamos para sumarte con tarifa preferente de por vida.</p>
+      <p class="sub" style="margin-top:-10px;margin-bottom:24px">tatupay está en etapa de diseño y partimos con un grupo chico de tatuadores que nos ayuda a armarlo bien.
+      Inscríbete y responde una encuesta corta (5–7 min): eso deja asegurada tu <strong>tarifa preferente de por vida</strong> para cuando partamos.</p>
       <form id="wl-form" novalidate>
         <div><label for="name">Nombre o nombre artístico</label><input id="name" name="name" required maxlength="80" autocomplete="name"></div>
         <div><label for="ig">Instagram (@usuario)</label><input id="ig" name="instagram" required maxlength="60" placeholder="@"></div>
@@ -573,7 +606,9 @@
           Tus datos viajan cifrados (SSL) y los usamos solo para contactarte por tatupay. Nada de spam.
         </div>
       </form>
-      <div id="wl-ok" class="msg">✔ Listo. Estás en la lista fundadora — te contactaremos por WhatsApp, Instagram o correo.</div>
+      <div id="wl-ok" class="msg">✔ Quedaste inscrito. Último paso para asegurar tu tarifa fundadora (3,9% de por vida):
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScEiq2j467AwSxW0fihbqIDxgSxyTEwfoo-cFt6hNls_QoTPA/viewform" target="_blank" rel="noopener">responde la encuesta (5–7 min)</a>.
+        El link también te llegó por correo.</div>
       <div id="wl-err" class="msg">No pudimos guardar tu registro en este momento. Escríbenos directo por Instagram a <a href="https://instagram.com/tatupay.cl" rel="noopener">@tatupay.cl</a> y quedas dentro igual.</div>
     </div>
   </section>
@@ -670,9 +705,12 @@ const clp = n => '$' + Math.round(n).toLocaleString('es-CL');
 const slider = document.getElementById('calc-monto');
 const paintCalc = () => {
   const m = Number(slider.value);
+  // el neto se calcula restando la comisión ya redondeada: así comisión + neto
+  // suman exacto el monto (redondear cada uno por separado daba $1 de más)
+  const fee = Math.round(m * RATE);
   document.getElementById('calc-val').textContent = clp(m);
-  document.getElementById('calc-fee').textContent = clp(m * RATE);
-  document.getElementById('calc-net').textContent = clp(m * (1 - RATE));
+  document.getElementById('calc-fee').textContent = clp(fee);
+  document.getElementById('calc-net').textContent = clp(m - fee);
 };
 slider.addEventListener('input', paintCalc);
 paintCalc();
@@ -683,15 +721,20 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-// ---- sincronizar pasos de la demo con la animación (16s, 4 tramos) ----
+// ---- sincronizar pasos de la demo con las pantallas del teléfono ----
+// Los eventos de la animación CSS son la fuente de verdad: cuando la pantalla i
+// (re)entra, se enciende el paso i. Cero deriva y sin el corrimiento de un paso
+// que tenía el interval. Con prefers-reduced-motion no hay animación ni eventos:
+// queda fija la pantalla 1 con el paso 01 encendido, coherentes entre sí.
 const steps = document.querySelectorAll('#demo-steps .demo-step');
-if (steps.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  let t = 0;
-  setInterval(() => {
-    steps.forEach((s, i) => s.classList.toggle('on', i === t));
-    t = (t + 1) % steps.length;
-  }, 4000);
+const screens = document.querySelectorAll('.phone .screen');
+if (steps.length) {
   steps[0].classList.add('on');
+  const highlight = i => steps.forEach((s, j) => s.classList.toggle('on', j === i));
+  screens.forEach((screen, i) => {
+    screen.addEventListener('animationstart', () => highlight(i));
+    screen.addEventListener('animationiteration', () => highlight(i));
+  });
 }
 </script>
 </body>
