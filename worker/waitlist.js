@@ -6,11 +6,27 @@
 
 import { sendWelcomeEmail } from './email.js';
 
+// Cupos del grupo fundador (decisión de socios, 17-jul-2026): la inscripción
+// reserva el cupo y responder la encuesta lo confirma. Con la lista llena se
+// siguen aceptando inscripciones (los cupos que no completan la encuesta se liberan).
+export const FOUNDER_SPOTS = 30;
+
 const json = (body, status = 200, extra = {}) =>
   new Response(JSON.stringify(body), {
     status,
     headers: { 'content-type': 'application/json', ...extra },
   });
+
+async function countEntries(env) {
+  let count = 0;
+  let cursor;
+  do {
+    const page = await env.WAITLIST.list({ prefix: 'wl:', cursor });
+    count += page.keys.length;
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor && count < 1000);
+  return count;
+}
 
 // GET /api/waitlist → { count }. El frontend solo muestra el contador si count >= 5.
 // GET /api/waitlist?format=csv&key=<ADMIN_KEY> → exporta los registros como CSV.
@@ -48,16 +64,17 @@ export async function handleWaitlistGet(request, env) {
     });
   }
 
-  let count = 0;
-  if (env.WAITLIST) {
-    let cursor;
-    do {
-      const page = await env.WAITLIST.list({ prefix: 'wl:', cursor });
-      count += page.keys.length;
-      cursor = page.list_complete ? undefined : page.cursor;
-    } while (cursor && count < 1000);
-  }
-  return json({ count }, 200, { 'cache-control': 'public, max-age=300' });
+  const count = env.WAITLIST ? await countEntries(env) : 0;
+  return json(
+    {
+      count,
+      spots_total: FOUNDER_SPOTS,
+      spots_left: Math.max(0, FOUNDER_SPOTS - count),
+    },
+    200,
+    // caché corto: el contador de cupos de la landing debe sentirse "live"
+    { 'cache-control': 'public, max-age=60' },
+  );
 }
 
 // POST /api/waitlist → registra a un artista.
@@ -116,14 +133,19 @@ export async function handleWaitlistPost(request, env, ctx) {
   const dedupeKey = `ig:${entry.instagram}`;
   if (await env.WAITLIST.get(dedupeKey)) return json({ ok: true, dup: true });
 
+  // Cupos restantes calculados ANTES de escribir la entrada nueva (KV list es
+  // eventualmente consistente y podría no verla aún): restantes = 30 - previos - 1.
+  const existing = await countEntries(env);
+  const spotsLeft = Math.max(0, FOUNDER_SPOTS - existing - 1);
+
   const key = `wl:${entry.ts}:${crypto.randomUUID()}`;
   await env.WAITLIST.put(key, JSON.stringify(entry));
   await env.WAITLIST.put(dedupeKey, key);
 
   // Correo de bienvenida en segundo plano: no demora la respuesta al formulario
   // y un fallo de correo no afecta el registro (ya quedó en KV).
-  const send = sendWelcomeEmail(env, entry);
+  const send = sendWelcomeEmail(env, entry, spotsLeft);
   if (ctx?.waitUntil) ctx.waitUntil(send); else await send;
 
-  return json({ ok: true });
+  return json({ ok: true, spots_left: spotsLeft });
 }
