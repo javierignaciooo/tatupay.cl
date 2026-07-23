@@ -274,7 +274,7 @@
       y la hora se bloquea <strong>solo cuando el abono está pagado</strong>. Chao no-shows.</p>
       <a class="cta pulse" href="#waitlist">Únete a la lista fundadora</a>
       <a class="cta-sec" href="#como">¿Cómo va a funcionar?</a>
-      <p class="counter" id="counter"><strong id="counter-n"></strong> artistas ya se sumaron a la lista fundadora</p>
+      <p class="counter">Quedan <strong></strong> de 30 cupos fundadores</p>
     </div>
     <div class="hero-art" aria-hidden="true">
       <!-- Máquina de tatuar (line-art neón): cuerpo con bobinas, tornillo de contacto,
@@ -452,7 +452,7 @@
       <div class="price-box">
         <p class="rate">3,9% <small>+ IVA por cobro exitoso · tarifa fundadora, de por vida</small></p>
         <p class="big" style="margin-top:14px">Sin mensualidad. Sin inscripción. Sin permanencia.</p>
-        <p>Pagamos cuando tú cobras: una comisión única por cada cobro exitoso, que ya incluye el costo de la tarjeta. Si un mes no cobras, no pagas nada. La tarifa general será 4,9% + IVA — el <strong style="color:var(--bone)">grupo fundador</strong> se queda en 3,9% para siempre. La tarifa fundadora se asegura inscribiéndote en la lista y respondiendo una encuesta corta que nos ayuda a diseñar tatupay.</p>
+        <p>Pagamos cuando tú cobras: una comisión única por cada cobro exitoso, que ya incluye el costo de la tarjeta. Si un mes no cobras, no pagas nada. La tarifa general será 4,9% + IVA — el <strong style="color:var(--bone)">grupo fundador</strong> se queda en 3,9% para siempre. Son <strong style="color:var(--bone)">30 cupos</strong>: tu inscripción reserva el tuyo y se asegura respondiendo una encuesta corta que nos ayuda a diseñar tatupay.</p>
 
         <div class="calc">
           <label for="calc-monto">Si cobras un abono de <output id="calc-val">$50.000</output></label>
@@ -587,8 +587,10 @@
   <section id="waitlist" class="reveal">
     <div class="wrap">
       <h2>Lista fundadora</h2>
-      <p class="sub" style="margin-top:-10px;margin-bottom:24px">tatupay está en etapa de diseño y partimos con un grupo chico de tatuadores que nos ayuda a armarlo bien.
-      Inscríbete y responde una encuesta corta (5–7 min): eso deja asegurada tu <strong>tarifa preferente de por vida</strong> para cuando partamos.</p>
+      <p class="sub" style="margin-top:-10px;margin-bottom:14px">tatupay está en etapa de diseño y partimos con un grupo chico de tatuadores que nos ayuda a armarlo bien.
+      El grupo fundador tiene <strong>30 cupos</strong>: tu inscripción reserva el tuyo y responder una encuesta corta (5–7 min) lo confirma — <strong>tarifa preferente de por vida</strong> para cuando partamos.
+      Los cupos reservados que no completan la encuesta se liberan.</p>
+      <p class="counter" style="margin:0 0 24px">Quedan <strong></strong> de 30 cupos fundadores</p>
       <form id="wl-form" novalidate>
         <div><label for="name">Nombre o nombre artístico</label><input id="name" name="name" required maxlength="80" autocomplete="name"></div>
         <div><label for="ig">Instagram (@usuario)</label><input id="ig" name="instagram" required maxlength="60" placeholder="@"></div>
@@ -691,12 +693,17 @@ document.querySelectorAll('#wl-form input:not([type=checkbox])').forEach(input =
   input.addEventListener('blur', paint);
 });
 
-// ---- contador de la lista (solo si el backend responde y el número es digno) ----
+// ---- contador live de cupos fundadores (solo si el backend responde) ----
 fetch('/api/waitlist').then(r => r.ok ? r.json() : null).then(d => {
-  if (d && d.count >= 5) {
-    document.getElementById('counter-n').textContent = d.count;
-    document.getElementById('counter').style.display = 'block';
-  }
+  if (!d || !Number.isFinite(d.spots_left)) return;
+  document.querySelectorAll('.counter').forEach(el => {
+    if (d.spots_left > 0) {
+      el.querySelector('strong').textContent = d.spots_left;
+    } else {
+      el.textContent = 'Los 30 cupos fundadores están reservados — al inscribirte quedas en la fila: los cupos que no completan la encuesta se liberan.';
+    }
+    el.style.display = 'block';
+  });
 }).catch(() => {});
 
 // ---- calculadora de comisión (3,9% + IVA = 4,641% efectivo) ----

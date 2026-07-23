@@ -21,19 +21,33 @@ const escapeHtml = (s) =>
 // Solo el primer nombre/palabra para el saludo; el nombre completo ya quedó en KV.
 const firstName = (name) => String(name).trim().split(/\s+/)[0];
 
-export function welcomeEmailText(name) {
-  const n = firstName(name);
-  return `Hola ${n} — estás dentro.
+// Frase de cupos según los restantes al momento del envío. Sin el dato
+// (spotsLeft no numérico) cae a una versión genérica pero igual de honesta.
+function spotsLine(spotsLeft) {
+  if (!Number.isFinite(spotsLeft)) {
+    return 'Los cupos del grupo fundador son limitados: los reservados que no completan la encuesta se liberan.';
+  }
+  if (spotsLeft <= 0) {
+    return 'Los 30 cupos del grupo fundador están reservados por ahora — respondiendo la encuesta quedas primero en la fila: los cupos que no la completan se liberan.';
+  }
+  return `El grupo fundador tiene 30 cupos y quedan ${spotsLeft}: los cupos reservados que no completan la encuesta se liberan.`;
+}
 
-Quedaste inscrito en el grupo fundador de tatupay, con la tarifa fundadora
-reservada a tu nombre: 3,9% + IVA por cobro exitoso, de por vida (la tarifa
+export function welcomeEmailText(name, spotsLeft) {
+  const n = firstName(name);
+  return `Hola ${n} — reservaste tu cupo.
+
+Quedaste inscrito en la lista del grupo fundador de tatupay. El beneficio es
+la tarifa fundadora: 3,9% + IVA por cobro exitoso, de por vida (la tarifa
 general será 4,9%). Sin mensualidad: si un mes no cobras, no pagas nada.
 
-UN PASO PARA ASEGURARLA
-La tarifa fundadora se confirma respondiendo nuestra encuesta — 5 a 7 minutos,
-desde el teléfono:
+EL REQUISITO PARA ASEGURARLA
+Tu inscripción reserva el cupo; la tarifa fundadora queda asegurada SOLO al
+responder nuestra encuesta — 5 a 7 minutos, desde el teléfono:
 
 ${SURVEY_URL}
+
+${spotsLine(spotsLeft)}
 
 ¿Por qué? tatupay está en etapa de diseño: todavía no hay plataforma que
 mostrar, y el grupo fundador es exactamente eso — los artistas cuyas
@@ -54,7 +68,7 @@ Recibiste este correo porque te inscribiste en la lista fundadora en tatupay.cl.
 ¿No fuiste tú? Responde este correo y te sacamos altiro.`;
 }
 
-export function welcomeEmailHtml(name) {
+export function welcomeEmailHtml(name, spotsLeft) {
   const n = escapeHtml(firstName(name));
   return `<!doctype html>
 <html lang="es">
@@ -88,11 +102,11 @@ export function welcomeEmailHtml(name) {
     <tr><td bgcolor="#171717" style="background:#171717;border:1px solid #262626;border-radius:12px;padding:32px 28px;font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
 
       <h1 style="margin:0 0 16px;color:#F4EFE6;font-size:26px;font-weight:800;letter-spacing:-.03em;line-height:1.25">
-        Hola ${n} — estás dentro.
+        Hola ${n} — reservaste tu cupo.
       </h1>
 
       <p style="margin:0 0 20px;color:#B8AFA6;font-size:16px;line-height:1.6">
-        Quedaste inscrito en el <strong style="color:#F4EFE6">grupo fundador de tatupay</strong>, con la tarifa fundadora reservada a tu nombre:
+        Quedaste inscrito en la lista del <strong style="color:#F4EFE6">grupo fundador de tatupay</strong>. El beneficio es la tarifa fundadora:
       </p>
 
       <!-- bloque tarifa -->
@@ -103,10 +117,10 @@ export function welcomeEmailHtml(name) {
         </td>
       </tr></table>
 
-      <h2 style="margin:28px 0 12px;color:#F4EFE6;font-size:16px;font-weight:800;letter-spacing:-.02em">Un paso para asegurarla</h2>
+      <h2 style="margin:28px 0 12px;color:#F4EFE6;font-size:16px;font-weight:800;letter-spacing:-.02em">El requisito para asegurarla</h2>
 
       <p style="margin:0 0 18px;color:#B8AFA6;font-size:15px;line-height:1.6">
-        La tarifa fundadora se confirma respondiendo nuestra encuesta — <strong style="color:#F4EFE6">5 a 7 minutos, desde el teléfono</strong>:
+        Tu inscripción reserva el cupo; la tarifa fundadora queda asegurada <strong style="color:#F4EFE6">solo al responder nuestra encuesta</strong> — 5 a 7 minutos, desde el teléfono:
       </p>
 
       <!-- botón encuesta -->
@@ -115,6 +129,10 @@ export function welcomeEmailHtml(name) {
           <a href="${SURVEY_URL}" style="display:inline-block;padding:13px 26px;color:#0E0E0E;font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;text-decoration:none">Responder la encuesta</a>
         </td>
       </tr></table>
+
+      <p style="margin:16px 0 0;color:#F4EFE6;font-size:14px;line-height:1.6;font-weight:600">
+        ${spotsLine(spotsLeft)}
+      </p>
 
       <p style="margin:18px 0 0;color:#B8AFA6;font-size:14px;line-height:1.6">
         ¿Por qué? tatupay está en <strong style="color:#F4EFE6">etapa de diseño</strong>: todavía no hay plataforma que mostrar, y el grupo fundador es exactamente eso — los artistas cuyas respuestas definen qué construimos y cómo. Si prefieres conversar en vez de llenar un formulario, <strong style="color:#F4EFE6">responde este correo</strong> y coordinamos una llamada corta: también confirma tu tarifa.
@@ -160,7 +178,7 @@ export function welcomeEmailHtml(name) {
 
 // Envía el correo de bienvenida. Nunca lanza: un fallo de correo no puede
 // botar un registro que ya quedó guardado en KV.
-export async function sendWelcomeEmail(env, entry) {
+export async function sendWelcomeEmail(env, entry, spotsLeft) {
   if (!env.RESEND_API_KEY) return { skipped: true };
   try {
     const res = await fetch('https://api.resend.com/emails', {
@@ -174,8 +192,8 @@ export async function sendWelcomeEmail(env, entry) {
         to: [entry.email],
         reply_to: REPLY_TO,
         subject: SUBJECT,
-        html: welcomeEmailHtml(entry.name),
-        text: welcomeEmailText(entry.name),
+        html: welcomeEmailHtml(entry.name, spotsLeft),
+        text: welcomeEmailText(entry.name, spotsLeft),
       }),
     });
     if (!res.ok) console.error('resend error', res.status, await res.text());
