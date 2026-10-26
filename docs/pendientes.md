@@ -2,7 +2,9 @@
 
 Lista viva de tareas acordadas que aún no se ejecutan. Sacar de aquí lo que se complete.
 
-(Sin pendientes abiertos por ahora.)
+- **Constituir tatupay SpA** (26-oct-2026): dos accionistas, Javier y Ámbar, 50/50; Franco no será
+  accionista. Ejecutar en una sesión nueva con `docs/legal/handoff-constitucion-spa.md`. Antes de
+  redactar: confirmar si Ámbar sigue en Corfo (Ruta B de PLAN §1.1 si sigue).
 
 ## Contexto relacionado (ya resuelto, para referencia)
 
