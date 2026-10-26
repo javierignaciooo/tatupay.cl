@@ -2,6 +2,10 @@
 
 *Encargo de Javier, 26-oct-2026. Destinatario: la sesión de Claude que ejecute la constitución.*
 
+**Ejecutor: Claude Code sobre este repo** (necesita leer `docs/`, commitear y generar .docx; la verificación
+normativa se hace con su búsqueda web). El trámite en el Registro de Empresas y Sociedades no lo ejecuta Claude:
+lo hacen Javier y Ámbar con su Clave Única, copiando el mapeo de campos del entregable E2.
+
 **Prompt para abrir la sesión** (copiar tal cual):
 
 > Lee `docs/legal/handoff-constitucion-spa.md` y ejecútalo. Parte por las preguntas de la sección 3; no redactes nada antes de tener esas respuestas.
